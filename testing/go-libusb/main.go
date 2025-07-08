@@ -106,11 +106,10 @@ func main() {
 
 	// TODO: figure out how to get the specific device that works without resorting to specifying the path
 	for _, device := range devices {
-		// TODO: first one doesn't work
-		if device.Interface == 0 {
+		if device.Interface != 1 {
 			continue
 		}
-		log.Println(device.Path)
+		log.Println("Opening device at", device.Path)
 
 		openDev, err := device.Open()
 		if err != nil {
@@ -120,16 +119,12 @@ func main() {
 		// Query the battery level
 		level, status, err := getBatteryLevel(openDev)
 		if err != nil {
-			openDev.Close()
-			log.Fatalf("Error getting battery level: %v", err)
+			log.Printf("Error getting battery level: %v", err)
+		} else {
+			log.Printf("Battery Level: %d%%, Status: %s", level, status)
 		}
 
-		log.Printf("Battery Level: %d%%, Status: %s", level, status)
-
 		openDev.Close()
-
-		// TODO: stop after the first successful read
-		// write on last device is broken
 		break
 	}
 }

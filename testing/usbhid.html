@@ -1,0 +1,32 @@
+<button>Request Serial Port</button>
+<!-- 
+(((!(usb.src == "3.15.2")) && !(usb.dst == "3.15.2")) && !(usb.src == "3.12.1")) && !(usb.dst == "3.12.1")
+-->
+<script>
+const button = document.querySelector('button');
+button.addEventListener('click', async function() {
+    const devices = await navigator.hid.requestDevice({
+        filters: [{
+            vendorId: 0x3554,
+            productId: 0xf58a,
+        }],
+    });
+    // Find device where collections count is 6
+    const filteredDevices = devices.filter(device => device.collections.length === 6);
+    const device = filteredDevices[0];
+    if (!device.opened) {
+        await device.open()
+        device.addEventListener('inputreport', (event) => {
+            console.log(event.data);
+        });
+    }
+    console.log(device.collections);    
+
+    device.sendReport(0x08, new Uint8Array([
+        0x04, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 73,
+    ]));
+})
+</script>
