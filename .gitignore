@@ -1,0 +1,10 @@
+# Makefile fragments
+*.cmd
+*.mod
+*.mod.c
+*.o
+Module.symvers
+modules.order
+
+# The actual built module
+*.ko
