@@ -1,0 +1,2 @@
+SUBSYSTEM=="input", ATTRS{idVendor}=="3554", ATTRS{idProduct}=="f58a", ENV{ID_INPUT_MOUSE}="1", ENV{ID_INPUT}="1"
+SUBSYSTEM=="input", ATTRS{idVendor}=="3554", ATTRS{idProduct}=="f58c", ENV{ID_INPUT_MOUSE}="1", ENV{ID_INPUT}="1"

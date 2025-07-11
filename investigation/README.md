@@ -1,0 +1,1 @@
+HID Report Descriptors parsed with https://eleccelerator.com/usbdescreqparser/
