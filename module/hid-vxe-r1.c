@@ -140,15 +140,15 @@ static void vxe_battery_work_handler(struct work_struct *work) {
     }*/
 
     report = list_first_entry(report_list, struct hid_report, list);
-	if (report->id != REPORT_ID) {
-		hid_err(hdev, "invalid report id\n");
+    if (report->id != REPORT_ID) {
+        hid_err(hdev, "invalid report id\n");
         return;
-	}
+    }
 
-	if (report->field[0]->report_count < 16) {
-		hid_err(hdev, "not enough values in the field\n");
+    if (report->field[0]->report_count < 16) {
+        hid_err(hdev, "not enough values in the field\n");
         return;
-	}
+    }
 
     report->field[0]->value[0] = 0x04; // Command
     report->field[0]->value[15] = 0x49; // Checksum
@@ -180,14 +180,14 @@ static int vxe_probe(struct hid_device *hdev, const struct hid_device_id *id) {
     int ifnum = intf->cur_altsetting->desc.bInterfaceNumber;
 
     // Parse the HID descriptor
-	int ret = hid_parse(hdev);
-	if (ret) {
+    int ret = hid_parse(hdev);
+    if (ret) {
         hid_err(hdev, "hid_parse failed with error %d\n", ret);
         return ret;
     }
 
     // Start the HID hardware for I/O operations
-	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
+    ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
     if (ret) {
         hid_err(hdev, "hid_hw_start failed with error %d\n", ret);
         return ret;
@@ -323,16 +323,16 @@ static void vxe_remove(struct hid_device *hdev) {
 }
 
 static const struct hid_device_id vxe_devices[] = {
-	{ HID_USB_DEVICE(0x3554, 0xf58a) }, // wireless dongle
+    { HID_USB_DEVICE(0x3554, 0xf58a) }, // wireless dongle
     { HID_USB_DEVICE(0x3554, 0xf58c) }, // wired
-	{ }
+    { }
 };
 MODULE_DEVICE_TABLE(hid, vxe_devices);
 
 static struct hid_driver vxe_driver = {
-	.name = "vxe-dragonfly-r1-pro-max",
-	.id_table = vxe_devices,
-	.probe = vxe_probe,
+    .name = "vxe-dragonfly-r1-pro-max",
+    .id_table = vxe_devices,
+    .probe = vxe_probe,
     .raw_event = vxe_raw_event,
     .remove = vxe_remove,
 };
