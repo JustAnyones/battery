@@ -26,7 +26,7 @@
 // Define the interface number we want to poll for battery status
 #define TARGET_INTERFACE 1
 // Define polling interval for battery status in milliseconds
-#define BATTERY_POLL_INTERVAL_MS 5000
+#define BATTERY_POLL_INTERVAL_MS 30000
 // Define the request packet for battery status
 #define REPORT_ID 0x08
 
